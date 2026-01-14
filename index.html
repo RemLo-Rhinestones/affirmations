@@ -106,7 +106,7 @@
 <body>
 
 <div class="card">
-    <div class="title">You Are Seen</div>
+    <div class="title">You Are Enough</div>
 
     <select id="categorySelect"></select>
 
@@ -125,6 +125,7 @@
 <script>
 let affirmations = {};
 let currentCategory = "";
+let categoryQueue = {}; // Tracks remaining affirmations per category
 
 // Load JSON with cache-busting
 async function loadAffirmations() {
@@ -136,12 +137,15 @@ async function loadAffirmations() {
     const categorySelect = document.getElementById("categorySelect");
     categorySelect.innerHTML = ""; // clear previous options
 
-    // Populate dropdown
+    // Populate dropdown and initialize queue for each category
     for (const category in affirmations) {
         const option = document.createElement("option");
         option.value = category;
         option.textContent = category.charAt(0).toUpperCase() + category.slice(1);
         categorySelect.appendChild(option);
+
+        // Initialize queue with shuffled affirmations
+        categoryQueue[category] = shuffleArray([...affirmations[category]]);
     }
 
     // Select the first category by default
@@ -158,12 +162,28 @@ async function loadAffirmations() {
     });
 }
 
-// Show a random affirmation from the selected category
-function newAffirmation() {
-    const list = affirmations[currentCategory];
-    if (!list || list.length === 0) return;
+// Shuffle array helper function
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
-    const random = list[Math.floor(Math.random() * list.length)];
+// Show a random affirmation without repeating until all used
+function newAffirmation() {
+    let queue = categoryQueue[currentCategory];
+    if (!queue || queue.length === 0) return;
+
+    // Take the first affirmation from the queue
+    const random = queue.shift();
+
+    // If queue is empty, reshuffle for next round
+    if (queue.length === 0) {
+        categoryQueue[currentCategory] = shuffleArray([...affirmations[currentCategory]]);
+    }
+
     const affirmationEl = document.getElementById("affirmation");
 
     // Reset animation
