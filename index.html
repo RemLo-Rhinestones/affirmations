@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>You Are Light</title>
+<title>RemLo's Rhinestones</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
@@ -30,8 +30,8 @@
     }
 
     .title {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
+        font-size: 1.4rem;
+        margin-bottom: 15px;
         text-transform: uppercase;
         letter-spacing: 2px;
         color: #444;
@@ -50,7 +50,29 @@
         transform: translateY(0) !important;
     }
 
-    select, button {
+    select {
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: none;
+        font-size: 1rem;
+        margin: 12px 0;
+        cursor: pointer;
+        font-family: inherit;
+        background: linear-gradient(90deg, #a78bfa, #fbb6ce);
+        color: white;
+        font-weight: bold;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-align: center;
+    }
+
+    select option {
+        color: #444;
+        background-color: #fff;
+    }
+
+    button {
         padding: 10px 15px;
         border-radius: 10px;
         border: none;
@@ -58,16 +80,10 @@
         margin: 8px;
         cursor: pointer;
         font-family: inherit;
-    }
-
-    select[multiple] {
-        height: auto;
-    }
-
-    button {
         background-color: #a78bfa;
         color: white;
         font-weight: bold;
+        transition: background 0.3s ease;
     }
 
     button:hover {
@@ -90,9 +106,9 @@
 <body>
 
 <div class="card">
-    <div class="title">You Are Light</div>
+    <div class="title">You Are Seen</div>
 
-    <select id="categorySelect" multiple size="4"></select>
+    <select id="categorySelect"></select>
 
     <div id="affirmation" class="affirmation">Loading...</div>
 
@@ -108,8 +124,9 @@
 
 <script>
 let affirmations = {};
+let currentCategory = "";
 
-// Load JSON with cache-busting to always get the latest version
+// Load JSON with cache-busting
 async function loadAffirmations() {
     const response = await fetch(
         "https://remlo-rhinestones.github.io/affirmations/affirmations.json?t=" + new Date().getTime()
@@ -119,7 +136,7 @@ async function loadAffirmations() {
     const categorySelect = document.getElementById("categorySelect");
     categorySelect.innerHTML = ""; // clear previous options
 
-    // Populate multi-select dropdown
+    // Populate dropdown
     for (const category in affirmations) {
         const option = document.createElement("option");
         option.value = category;
@@ -127,30 +144,26 @@ async function loadAffirmations() {
         categorySelect.appendChild(option);
     }
 
-    // Pre-select first category
-    if (categorySelect.options.length > 0) categorySelect.options[0].selected = true;
+    // Select the first category by default
+    if (categorySelect.options.length > 0) {
+        categorySelect.value = categorySelect.options[0].value;
+        currentCategory = categorySelect.value;
+    }
 
     newAffirmation();
 
     categorySelect.addEventListener("change", () => {
+        currentCategory = categorySelect.value;
         newAffirmation();
     });
 }
 
-// Show a random affirmation from all selected categories
+// Show a random affirmation from the selected category
 function newAffirmation() {
-    const categorySelect = document.getElementById("categorySelect");
-    const selectedCategories = Array.from(categorySelect.selectedOptions).map(opt => opt.value);
+    const list = affirmations[currentCategory];
+    if (!list || list.length === 0) return;
 
-    // Combine all affirmations from selected categories
-    let combinedList = [];
-    selectedCategories.forEach(cat => {
-        if (affirmations[cat]) combinedList = combinedList.concat(affirmations[cat]);
-    });
-
-    if (combinedList.length === 0) return;
-
-    const random = combinedList[Math.floor(Math.random() * combinedList.length)];
+    const random = list[Math.floor(Math.random() * list.length)];
     const affirmationEl = document.getElementById("affirmation");
 
     // Reset animation
