@@ -6,17 +6,46 @@
     "Your movement tells a story only you can tell.",
     "Progress in dance is not about perfection, it's about expression.",
     "Your body is strong, capable, and uniquely yours.",
-     "You are allowed to slow down when things feel heavy.",
+    "You are allowed to slow down when things feel heavy.",
     "You don’t have to figure everything out today.",
     "One small step is still progress.",
-     "You matter more than you know.",
+    "You matter more than you know.",
     "You deserve kindness... including from yourself.",
-    "You are worthy of love, rest, and joy."
+    "You are worthy of love, rest, and joy.",
+    "I am confident in my unique talent and journey",
+    "I am capable of achieving my goals",
+    "I am my only competition, and I wish to grow into a better dancer everyday",
+    "I am not afraid to make mistakes; they help me learn and grow",
+    "I am strong enough to keep going, even when I am disappointed",
+    "I am brave enough to push past my fears",
+    "The more I practice, the less afraid I feel",
+    "I dance with joy, passion, and freedom",
+    "I will perform with confidence and let my heart speak",
+    "I honor my body and give it the care it deserves",
+    "I am grateful for my body",
+    "I am becoming stronger every day",
+    "I will be patient with myself and learn at my own pace",
+    "The comeback is always stronger than the setback",
+    "I embrace challenges as opportunities to grow",
+    "I am in control of my own energy and mood",
+    "I am enough, and I have enough for my next best step",
+    "I am smart enough to learn from my mistakes.",
+    "Only I can determine my mood.",
+    "I will not be distracted by what’s not meant for me."
+    
   ],
   "dance": [
     "Your movement tells a story only you can tell.",
     "Progress in dance is not about perfection, it's about expression.",
     "Your body is strong, capable, and uniquely yours."
+  ],
+  "For Your Mind": [
+    "I am strong enough to keep going, even when I am disappointed",
+    "I am brave enough to push past my fears",
+    "The more I practice, the less afraid I feel",
+    "I am smart enough to learn from my mistakes.",
+    "Only I can determine my mood.",
+    "I will not be distracted by what’s not meant for me."
   ],
   "stress": [
     "You are allowed to slow down when things feel heavy.",
@@ -29,6 +58,7 @@
     "You are worthy of love, rest, and joy."
   ]
 }
+
 
 
 
