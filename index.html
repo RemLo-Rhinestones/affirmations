@@ -85,36 +85,40 @@
         transform: translateY(0) !important;
     }
 
-   select {
+   .select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px; /* adjust as needed */
+}
+
+.select-wrapper select {
+    width: 100%;
     padding: 10px 40px 10px 20px; /* space for icon */
     border-radius: 30px;
     border: none;
     font-size: 1rem;
-    margin: 12px 0;
-    cursor: pointer;
     font-family: inherit;
     font-weight: bold;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
     text-align: left;
-
     background: linear-gradient(90deg, #a78bfa, #fbb6ce);
     color: white;
-    position: relative;
+    cursor: pointer;
 }
 
-/* Hamburger icon as a pseudo-element */
-select::after {
-    content: '≡'; /* simple three-line symbol */
+.select-wrapper .hamburger {
     position: absolute;
-    right: 15px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: white;
+    pointer-events: none; /* click passes through to the select */
 }
+
 
 
 
@@ -266,6 +270,7 @@ loadAffirmations();
 
 </body>
 </html>
+
 
 
 
