@@ -168,3 +168,54 @@
 
     <script>
         let affirmations = {};
+        let used = {}; // tracks used affirmations per category
+
+        async function loadAffirmations() {
+            const response = await fetch("affirmations.json?cache=" + Date.now());
+            affirmations = await response.json();
+            used = {};
+
+            const select = document.getElementById("categorySelect");
+            select.innerHTML = "";
+
+            for (const category in affirmations) {
+                const option = document.createElement("option");
+                option.value = category;
+                option.textContent = category;
+                select.appendChild(option);
+                used[category] = [];
+            }
+
+            showAffirmation();
+        }
+
+        function showAffirmation() {
+            const category = document.getElementById("categorySelect").value;
+            const list = affirmations[category];
+            const usedList = used[category];
+
+            if (usedList.length === list.length) {
+                used[category] = [];
+            }
+
+            let index;
+            do {
+                index = Math.floor(Math.random() * list.length);
+            } while (used[category].includes(index));
+
+            used[category].push(index);
+
+            const affirmation = list[index];
+            const affirmationBox = document.getElementById("affirmationText");
+            affirmationBox.style.opacity = 0;
+            setTimeout(() => {
+                affirmationBox.textContent = affirmation;
+                affirmationBox.style.opacity = 1;
+            }, 200);
+        }
+
+        window.onload = loadAffirmations;
+    </script>
+
+</body>
+</html>
